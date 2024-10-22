@@ -19,7 +19,7 @@ on:
       isMainOrRelease:
         description: 'This build is for the main branch or a release (set to "false" for development branch builds)'
         required: true
-        default: 'true'
+        default: 'false'
         type: choice
         options:
         - 'true'
@@ -231,7 +231,7 @@ jobs:
       - name: Trigger Extensions workflow dispatch event with GitHub CLI
         if: github.event_name == 'workflow_dispatch'
         env:
-          GH_TOKEN: ${{ secrets.GALASA_TEAM_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh workflow run build.yaml --repo https://github.com/jackyhodev/extensions --ref ${{ env.BRANCH }} -f jacocoEnabled=${{ inputs.jacocoEnabled }} -f isMainOrRelease=${{ inputs.isMainOrRelease }}
 
